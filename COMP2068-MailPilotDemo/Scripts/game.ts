@@ -1,7 +1,23 @@
 ﻿var canvas;
 var stage: createjs.Stage;
+var assetLoader: createjs.LoadQueue;
+
+var manifest = [
+    { id: "cloud", src: "assets/images/cloud.png" },
+    { id: "island", src: "assets/images/island.png" },
+    { id: "ocean", src: "assets/images/ocean.gif" },
+    { id: "plane", src: "assets/images/plane.png" }
+];
 
 // Game Objects 
+
+function preload() {
+
+    assetLoader = new createjs.LoadQueue();
+    assetLoader.installPlugin(createjs.Sound);
+    assetLoader.on("complete", init, this);
+    assetLoader.loadManifest(manifest);
+}
 
 
 function init() {
@@ -27,6 +43,8 @@ function gameLoop() {
 
 // Our Game Kicks off in here
 function main() {
+
+    console.log("Getting our game started...");
 
     
 }
