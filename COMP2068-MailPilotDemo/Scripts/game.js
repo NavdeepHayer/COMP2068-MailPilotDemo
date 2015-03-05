@@ -1,6 +1,12 @@
+/// <reference path="typings/createjs-lib/createjs-lib.d.ts" />
+/// <reference path="typings/easeljs/easeljs.d.ts" />
+/// <reference path="typings/tweenjs/tweenjs.d.ts" />
+/// <reference path="typings/soundjs/soundjs.d.ts" />
+/// <reference path="typings/preloadjs/preloadjs.d.ts" />
 var canvas;
 var stage;
 var assetLoader;
+// asset manifest - array of asset objects
 var manifest = [
     { id: "cloud", src: "assets/images/cloud.png" },
     { id: "island", src: "assets/images/island.png" },
@@ -9,10 +15,10 @@ var manifest = [
 ];
 // Game Objects 
 function preload() {
-    assetLoader = new createjs.LoadQueue();
+    assetLoader = new createjs.LoadQueue(); // instantiated assetLoader
     assetLoader.installPlugin(createjs.Sound);
-    assetLoader.on("complete", init, this);
-    assetLoader.loadManifest(manifest);
+    assetLoader.on("complete", init, this); // event handler-triggers when loading done
+    assetLoader.loadManifest(manifest); // loading my asset manifest
 }
 function init() {
     canvas = document.getElementById("canvas");
@@ -27,6 +33,7 @@ function gameLoop() {
 }
 // Our Game Kicks off in here
 function main() {
-    console.log("Getting our game started...");
+    var plane = new createjs.Bitmap(assetLoader.getResult("plane"));
+    stage.addChild(plane);
 }
 //# sourceMappingURL=game.js.map
