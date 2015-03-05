@@ -5,14 +5,23 @@
 /// <reference path="typings/preloadjs/preloadjs.d.ts" />
 
 
-
-
+/// <reference path="objects/plane.ts" />
+/// <reference path="objects/island.ts" />
+/// <reference path="objects/cloud.ts" />
+/// <reference path="objects/ocean.ts" />
 
 
 
 var canvas;
 var stage: createjs.Stage;
 var assetLoader: createjs.LoadQueue;
+
+// Game Objects
+var plane: objects.Plane;
+var island: objects.Island;
+var clouds: objects.Cloud[] = [];
+var ocean: objects.Ocean;
+
 
 // asset manifest - array of asset objects
 var manifest = [
@@ -44,6 +53,13 @@ function init() {
 
 function gameLoop() {
 
+    ocean.update();
+    plane.update();
+    island.update();
+
+    for (var cloud = 3; cloud > 0; cloud--) {
+        clouds[cloud].update();
+    }
 
 
     stage.update(); // Refreshes our stage
@@ -55,8 +71,27 @@ function gameLoop() {
 
 // Our Game Kicks off in here
 function main() {
+    // Add ocean to game
+    ocean = new objects.Ocean();
+    stage.addChild(ocean);
 
-    var plane: createjs.Bitmap = new createjs.Bitmap(assetLoader.getResult("plane"));
+
+    // Add island to game
+    island = new objects.Island();
+    stage.addChild(island);
+
+
+    // Add plane to game
+    plane = new objects.Plane();
     stage.addChild(plane);
+
+    // Add clouds to game
+    for (var cloud = 3; cloud > 0; cloud--) {
+        clouds[cloud] = new objects.Cloud();
+        stage.addChild(clouds[cloud]);
+    }
+
+
+
     
 }

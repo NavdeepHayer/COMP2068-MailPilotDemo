@@ -3,9 +3,18 @@
 /// <reference path="typings/tweenjs/tweenjs.d.ts" />
 /// <reference path="typings/soundjs/soundjs.d.ts" />
 /// <reference path="typings/preloadjs/preloadjs.d.ts" />
+/// <reference path="objects/plane.ts" />
+/// <reference path="objects/island.ts" />
+/// <reference path="objects/cloud.ts" />
+/// <reference path="objects/ocean.ts" />
 var canvas;
 var stage;
 var assetLoader;
+// Game Objects
+var plane;
+var island;
+var clouds = [];
+var ocean;
 // asset manifest - array of asset objects
 var manifest = [
     { id: "cloud", src: "assets/images/cloud.png" },
@@ -29,11 +38,28 @@ function init() {
     main();
 }
 function gameLoop() {
+    ocean.update();
+    plane.update();
+    island.update();
+    for (var cloud = 3; cloud > 0; cloud--) {
+        clouds[cloud].update();
+    }
     stage.update(); // Refreshes our stage
 }
 // Our Game Kicks off in here
 function main() {
-    var plane = new createjs.Bitmap(assetLoader.getResult("plane"));
+    // Add ocean to game
+    ocean = new objects.Ocean();
+    stage.addChild(ocean);
+    // Add island to game
+    island = new objects.Island();
+    stage.addChild(island);
+    // Add plane to game
+    plane = new objects.Plane();
     stage.addChild(plane);
+    for (var cloud = 3; cloud > 0; cloud--) {
+        clouds[cloud] = new objects.Cloud();
+        stage.addChild(clouds[cloud]);
+    }
 }
 //# sourceMappingURL=game.js.map
