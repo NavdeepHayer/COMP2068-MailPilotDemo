@@ -59,6 +59,9 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assets\audio\engine.ogg" />
+    <Content Include="assets\audio\thunder.ogg" />
+    <Content Include="assets\audio\yay.ogg" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -67,7 +70,12 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="assets\images\blueButton.png" />
+    <Content Include="assets\images\1945.bmp" />
+    <Content Include="assets\images\cloud.png" />
+    <Content Include="assets\images\island.png" />
+    <Content Include="assets\images\ocean.gif" />
+    <Content Include="assets\images\plane.png" />
+    <Content Include="assets\images\sideplane.gif" />
     <Content Include="css\game.css" />
     <Content Include="index.html" />
     <Content Include="Scripts\lib\easeljs-0.8.0.min.js" />
@@ -89,7 +97,6 @@
     <TypeScriptCompile Include="Scripts\lib\tweenjs.d.ts" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="assets\audio\" />
     <Folder Include="assets\fonts\" />
   </ItemGroup>
   <PropertyGroup>
