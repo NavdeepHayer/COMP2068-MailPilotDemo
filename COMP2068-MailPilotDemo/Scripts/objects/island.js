@@ -10,14 +10,9 @@ var objects;
         __extends(Island, _super);
         // CONSTRUCTOR ++++++++++++++++++++++++++++++++++++++++++++
         function Island() {
-            _super.call(this, assetLoader.getResult("island"));
-            this.isColliding = false;
-            // PRIVATE VARIABLE
+            _super.call(this, "island");
             this._dy = 5;
-            this.width = this.getBounds().width;
-            this.height = this.getBounds().height;
-            this.regX = this.width * 0.5;
-            this.regY = this.height * 0.5;
+            this.soundString = "yay";
             this._reset();
         }
         // PRIVATE METHODS ++++++++++++++++++++++++++++++++++++++++
@@ -37,7 +32,7 @@ var objects;
             this._checkBounds();
         };
         return Island;
-    })(createjs.Bitmap);
+    })(objects.GameObject);
     objects.Island = Island;
 })(objects || (objects = {}));
 //# sourceMappingURL=island.js.map

@@ -10,12 +10,8 @@ var objects;
         __extends(Cloud, _super);
         // CONSTRUCTOR ++++++++++++++++++++++++++++++++++++++++++++
         function Cloud() {
-            _super.call(this, assetLoader.getResult("cloud"));
-            this.isColliding = false;
-            this.width = this.getBounds().width;
-            this.height = this.getBounds().height;
-            this.regX = this.width * 0.5;
-            this.regY = this.height * 0.5;
+            _super.call(this, "cloud");
+            this.soundString = "thunder";
             this._reset();
         }
         // PRIVATE METHODS ++++++++++++++++++++++++++++++++++++++++
@@ -39,7 +35,7 @@ var objects;
             this._checkBounds();
         };
         return Cloud;
-    })(createjs.Bitmap);
+    })(objects.GameObject);
     objects.Cloud = Cloud;
 })(objects || (objects = {}));
 //# sourceMappingURL=cloud.js.map

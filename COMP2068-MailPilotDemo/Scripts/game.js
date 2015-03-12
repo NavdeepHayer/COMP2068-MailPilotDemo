@@ -4,6 +4,7 @@
 /// <reference path="typings/soundjs/soundjs.d.ts" />
 /// <reference path="typings/preloadjs/preloadjs.d.ts" />
 /// <reference path="typings/stats/stats.d.ts" />
+/// <reference path="objects/gameobject.ts" />
 /// <reference path="objects/plane.ts" />
 /// <reference path="objects/island.ts" />
 /// <reference path="objects/cloud.ts" />
@@ -55,38 +56,21 @@ function setupStats() {
 function distance(p1, p2) {
     return Math.floor(Math.sqrt(Math.pow((p2.x - p1.x), 2) + Math.pow((p2.y - p1.y), 2)));
 }
-function planeAndIsland() {
+function checkCollision(collider) {
     var p1 = new createjs.Point();
     var p2 = new createjs.Point();
     p1.x = plane.x;
     p1.y = plane.y;
-    p2.x = island.x;
-    p2.y = island.y;
-    if (distance(p2, p1) < ((plane.height * 0.5) + (island.height * 0.5))) {
-        if (!island.isColliding) {
-            createjs.Sound.play("yay");
-            island.isColliding = true;
+    p2.x = collider.x;
+    p2.y = collider.y;
+    if (distance(p2, p1) < ((plane.height * 0.5) + (collider.height * 0.5))) {
+        if (!collider.isColliding) {
+            createjs.Sound.play(collider.soundString);
+            collider.isColliding = true;
         }
     }
     else {
-        island.isColliding = false;
-    }
-}
-function planeAndCloud(cloud) {
-    var p1 = new createjs.Point();
-    var p2 = new createjs.Point();
-    p1.x = plane.x;
-    p1.y = plane.y;
-    p2.x = cloud.x;
-    p2.y = cloud.y;
-    if (distance(p2, p1) < ((plane.height * 0.5) + (cloud.height * 0.5))) {
-        if (!cloud.isColliding) {
-            createjs.Sound.play("thunder");
-            cloud.isColliding = true;
-        }
-    }
-    else {
-        cloud.isColliding = false;
+        collider.isColliding = false;
     }
 }
 function gameLoop() {
@@ -96,9 +80,9 @@ function gameLoop() {
     island.update();
     for (var cloud = 3; cloud > 0; cloud--) {
         clouds[cloud].update();
-        planeAndCloud(clouds[cloud]);
+        checkCollision(clouds[cloud]);
     }
-    planeAndIsland();
+    checkCollision(island);
     stage.update(); // Refreshes our stage
     stats.end(); // End metering
 }

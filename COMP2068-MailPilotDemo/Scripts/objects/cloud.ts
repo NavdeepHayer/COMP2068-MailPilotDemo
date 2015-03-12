@@ -1,24 +1,12 @@
 ﻿module objects {
 
-    export class Cloud extends createjs.Bitmap {
-        // PUBLIC VARIABLES
-        public width: number;
-        public height: number;
-        public isColliding: boolean = false;
-
-        // PRIVATE VARIABLE
-        private _dy;
-        private _dx;
+    export class Cloud extends objects.GameObject {
 
         // CONSTRUCTOR ++++++++++++++++++++++++++++++++++++++++++++
         constructor() {
-            super(assetLoader.getResult("cloud"));
-
-            this.width = this.getBounds().width;
-            this.height = this.getBounds().height;
-
-            this.regX = this.width * 0.5;
-            this.regY = this.height * 0.5;
+            super("cloud");
+               
+            this.soundString = "thunder";
 
             this._reset();
 
