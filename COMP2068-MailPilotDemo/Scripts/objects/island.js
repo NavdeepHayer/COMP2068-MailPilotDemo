@@ -11,6 +11,7 @@ var objects;
         // CONSTRUCTOR ++++++++++++++++++++++++++++++++++++++++++++
         function Island() {
             _super.call(this, assetLoader.getResult("island"));
+            this.isColliding = false;
             // PRIVATE VARIABLE
             this._dy = 5;
             this.width = this.getBounds().width;

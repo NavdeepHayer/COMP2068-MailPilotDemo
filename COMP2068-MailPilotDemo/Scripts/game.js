@@ -22,7 +22,10 @@ var manifest = [
     { id: "cloud", src: "assets/images/cloud.png" },
     { id: "island", src: "assets/images/island.png" },
     { id: "ocean", src: "assets/images/ocean.gif" },
-    { id: "plane", src: "assets/images/plane.png" }
+    { id: "plane", src: "assets/images/plane.png" },
+    { id: "engine", src: "assets/audio/engine.ogg" },
+    { id: "yay", src: "assets/audio/yay.ogg" },
+    { id: "thunder", src: "assets/audio/thunder.ogg" }
 ];
 // Game Objects 
 function preload() {
@@ -40,12 +43,51 @@ function init() {
     setupStats();
     main();
 }
+// UTILITY METHODS +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 function setupStats() {
     stats.setMode(0);
     stats.domElement.style.position = 'absolute';
     stats.domElement.style.left = '650px';
     stats.domElement.style.top = '440px';
     document.body.appendChild(stats.domElement);
+}
+// Calculate the distance between two points
+function distance(p1, p2) {
+    return Math.floor(Math.sqrt(Math.pow((p2.x - p1.x), 2) + Math.pow((p2.y - p1.y), 2)));
+}
+function planeAndIsland() {
+    var p1 = new createjs.Point();
+    var p2 = new createjs.Point();
+    p1.x = plane.x;
+    p1.y = plane.y;
+    p2.x = island.x;
+    p2.y = island.y;
+    if (distance(p2, p1) < ((plane.height * 0.5) + (island.height * 0.5))) {
+        if (!island.isColliding) {
+            createjs.Sound.play("yay");
+            island.isColliding = true;
+        }
+    }
+    else {
+        island.isColliding = false;
+    }
+}
+function planeAndCloud(cloud) {
+    var p1 = new createjs.Point();
+    var p2 = new createjs.Point();
+    p1.x = plane.x;
+    p1.y = plane.y;
+    p2.x = cloud.x;
+    p2.y = cloud.y;
+    if (distance(p2, p1) < ((plane.height * 0.5) + (cloud.height * 0.5))) {
+        if (!cloud.isColliding) {
+            createjs.Sound.play("thunder");
+            cloud.isColliding = true;
+        }
+    }
+    else {
+        cloud.isColliding = false;
+    }
 }
 function gameLoop() {
     stats.begin(); // Begin metering
@@ -54,7 +96,9 @@ function gameLoop() {
     island.update();
     for (var cloud = 3; cloud > 0; cloud--) {
         clouds[cloud].update();
+        planeAndCloud(clouds[cloud]);
     }
+    planeAndIsland();
     stage.update(); // Refreshes our stage
     stats.end(); // End metering
 }

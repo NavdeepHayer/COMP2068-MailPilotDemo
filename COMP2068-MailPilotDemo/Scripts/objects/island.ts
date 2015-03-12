@@ -2,8 +2,9 @@
 
     export class Island extends createjs.Bitmap {
         // PUBLIC VARIABLES
-        public width;
-        public height;
+        public width:number;
+        public height: number;
+        public isColliding: boolean = false;
 
         // PRIVATE VARIABLE
         private _dy = 5;

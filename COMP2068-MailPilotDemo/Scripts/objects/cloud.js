@@ -11,6 +11,7 @@ var objects;
         // CONSTRUCTOR ++++++++++++++++++++++++++++++++++++++++++++
         function Cloud() {
             _super.call(this, assetLoader.getResult("cloud"));
+            this.isColliding = false;
             this.width = this.getBounds().width;
             this.height = this.getBounds().height;
             this.regX = this.width * 0.5;
