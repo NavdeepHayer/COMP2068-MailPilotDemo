@@ -3,6 +3,7 @@
 /// <reference path="typings/tweenjs/tweenjs.d.ts" />
 /// <reference path="typings/soundjs/soundjs.d.ts" />
 /// <reference path="typings/preloadjs/preloadjs.d.ts" />
+/// <reference path="typings/stats/stats.d.ts" />
 
 
 /// <reference path="objects/plane.ts" />
@@ -11,7 +12,7 @@
 /// <reference path="objects/ocean.ts" />
 
 
-
+var stats: Stats = new Stats();
 var canvas;
 var stage: createjs.Stage;
 var assetLoader: createjs.LoadQueue;
@@ -47,11 +48,21 @@ function init() {
     stage.enableMouseOver(20); // Enable mouse events
     createjs.Ticker.setFPS(60); // 60 frames per second
     createjs.Ticker.addEventListener("tick", gameLoop);
+    setupStats();
 
     main();
 }
 
+function setupStats() {
+    stats.setMode(0);
+    stats.domElement.style.position = 'absolute';
+    stats.domElement.style.left = '650px';
+    stats.domElement.style.top = '440px';
+    document.body.appendChild(stats.domElement);
+}
+
 function gameLoop() {
+    stats.begin(); // Begin metering
 
     ocean.update();
     plane.update();
@@ -63,6 +74,8 @@ function gameLoop() {
 
 
     stage.update(); // Refreshes our stage
+
+    stats.end(); // End metering
 }
 
 
